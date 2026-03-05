@@ -130,7 +130,7 @@ async function fetchSchedule(gradeKey) {
 
   // 1차 시도: 직접 호출
   try {
-    const res = await fetch(directUrl);
+    const res = await fetch(directUrl, { signal: AbortSignal.timeout(1500) });
     if (res.ok) {
       xmlText = await res.text();
     }
@@ -141,7 +141,7 @@ async function fetchSchedule(gradeKey) {
   // 2차 시도: CORS 프록시
   if (!xmlText) {
     try {
-      const res = await fetch(proxyUrl);
+      const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(2500) });
       if (res.ok) {
         xmlText = await res.text();
       }
@@ -972,13 +972,13 @@ async function fetchAllItemsFromAPI() {
 
   let xmlText = null;
   try {
-    const res = await fetch(directUrl, { signal: AbortSignal.timeout(5000) });
+    const res = await fetch(directUrl, { signal: AbortSignal.timeout(1500) });
     if (res.ok) xmlText = await res.text();
   } catch (e) { /* 직접 실패 */ }
 
   if (!xmlText) {
     try {
-      const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+      const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(2500) });
       if (res.ok) xmlText = await res.text();
     } catch (e) { /* 프록시도 실패 */ }
   }

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>자격증 나침반 | 국가기술자격 정보 포털</title>
+  <meta name="description" content="국가기술자격 시험 일정, 합격자 발표, 응시수수료, 원서접수일 등 자격증 정보를 한눈에 확인하세요." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- 히어로 섹션 -->
+  <section class="hero" id="hero-section">
+    <div class="hero-bg"></div>
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        한국산업인력공단 공식 데이터 연동
+      </div>
+      <h1 class="hero-title">
+        내게 맞는 자격증,<br />
+        <span class="gradient-text">지금 바로 확인하세요</span>
+      </h1>
+      <p class="hero-desc">
+        시험 일정부터 합격자 발표, 응시수수료까지<br />
+        국가기술자격 정보를 한눈에 제공합니다
+      </p>
+      <div class="hero-search-box" id="search-section">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="main-search-input" class="search-input" placeholder="자격증 이름을 입력하세요 (예: 전기기사, 정보처리기사)"
+            autocomplete="off" />
+          <button class="search-btn" id="main-search-btn">검색</button>
+        </div>
+        <div class="search-tags">
+          <span class="tag-label">인기 검색:</span>
+          <button class="search-tag" data-query="전기기사" id="tag-전기기사">전기기사</button>
+          <button class="search-tag" data-query="정보처리기사" id="tag-정보처리기사">정보처리기사</button>
+          <button class="search-tag" data-query="산업안전기사" id="tag-산업안전기사">산업안전기사</button>
+          <button class="search-tag" data-query="지게차운전기능사" id="tag-지게차">지게차운전기능사</button>
+          <button class="search-tag" data-query="소방설비기사" id="tag-소방">소방설비기사</button>
+        </div>
+        <!-- 검색창 아래 메뉴 -->
+        <nav class="hero-nav" id="hero-nav">
+          <a href="#schedule-section" class="hero-nav-link" id="hnav-schedule">📅 시험 일정</a>
+          <a href="#popular-section" class="hero-nav-link" id="hnav-popular">🏆 인기 종목</a>
+          <a href="#fee-section" class="hero-nav-link" id="hnav-fee">💰 응시 수수료</a>
+          <a href="#allitems-section" class="hero-nav-link hero-nav-link--highlight" id="hnav-allitems">📚 전체 종목</a>
+        </nav>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card" id="stat-total">
+        <div class="stat-num">600+</div>
+        <div class="stat-label">자격 종목</div>
+      </div>
+      <div class="stat-card" id="stat-exam">
+        <div class="stat-num">2,274,368</div>
+        <div class="stat-label">2024 연간 응시자</div>
+      </div>
+      <div class="stat-card" id="stat-grade">
+        <div class="stat-num">4</div>
+        <div class="stat-label">자격 등급</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 메인 콘텐츠 -->
+  <main class="main">
+
+    <!-- 검색 결과 -->
+    <section class="search-result-section" id="search-result-section" style="display:none;">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">🔎 검색 결과</h2>
+          <span class="result-query" id="result-query-text"></span>
+        </div>
+        <div class="result-grid" id="search-result-grid">
+          <!-- 동적 삽입 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 시험 일정 섹션 -->
+    <section class="schedule-section" id="schedule-section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">📅 2026년 시험 시행일정</h2>
+            <p class="section-desc">등급별 시험 일정을 한눈에 확인하세요</p>
+          </div>
+          <div class="grade-tabs">
+            <button class="grade-tab active" data-grade="pe" id="tab-pe">기술사</button>
+            <button class="grade-tab" data-grade="mc" id="tab-mc">기능장</button>
+            <button class="grade-tab" data-grade="e" id="tab-e">기사/산업기사</button>
+            <button class="grade-tab" data-grade="c" id="tab-c">기능사</button>
+          </div>
+        </div>
+
+        <div class="schedule-loading" id="schedule-loading">
+          <div class="spinner"></div>
+          <p>시험 일정을 불러오는 중...</p>
+        </div>
+
+        <div class="schedule-error" id="schedule-error" style="display:none;">
+          <div class="error-icon">⚠️</div>
+          <p id="schedule-error-msg">데이터를 불러오지 못했습니다.</p>
+          <button class="retry-btn" id="schedule-retry-btn">다시 시도</button>
+        </div>
+
+        <div class="schedule-grid" id="schedule-grid">
+          <!-- 동적 삽입 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 인기 종목 섹션 -->
+    <section class="popular-section" id="popular-section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">🏆 인기 자격증 TOP 10</h2>
+            <p class="section-desc">2024년 응시자 수 기준 가장 많이 응시한 자격증</p>
+          </div>
+        </div>
+
+        <div class="popular-grid" id="popular-grid">
+          <!-- 동적 삽입 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 수수료 섹션 -->
+    <section class="fee-section" id="fee-section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">💰 등급별 응시수수료</h2>
+            <p class="section-desc">필기 및 실기 시험 응시수수료 안내</p>
+          </div>
+        </div>
+        <div class="fee-cards" id="fee-cards">
+          <!-- 동적 삽입 -->
+        </div>
+
+        <div class="fee-notice">
+          <div class="notice-icon">ℹ️</div>
+          <div class="notice-text">
+            <strong>종목별 수수료 조회</strong>는 상단 검색을 이용하거나,
+            <a href="https://www.q-net.or.kr" target="_blank" rel="noopener">Q-net 공식 사이트</a>에서 확인하세요.
+            수수료는 종목에 따라 다를 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- D-Day 카운터 -->
+    <section class="dday-section" id="dday-section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">⏰ D-Day 카운터</h2>
+            <p class="section-desc">다가오는 시험까지 남은 날을 확인하세요</p>
+          </div>
+        </div>
+        <div class="dday-grid" id="dday-grid">
+          <!-- 동적 삽입 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 전체 종목 브라우저 -->
+    <section class="allitems-section" id="allitems-section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">📚 전체 자격증 종목</h2>
+            <p class="section-desc">국가기술자격 전체 종목을 검색·필터링하여 확인하세요</p>
+          </div>
+          <div class="allitems-count" id="allitems-count"></div>
+        </div>
+
+        <!-- 필터 영역 -->
+        <div class="allitems-filters">
+          <div class="filter-search-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="allitems-search" class="filter-search-input" placeholder="종목명으로 검색..."
+              autocomplete="off" />
+            <button class="filter-clear-btn" id="allitems-clear" style="display:none;">✕</button>
+          </div>
+          <div class="filter-chips">
+            <span class="filter-chip-label">등급:</span>
+            <button class="filter-chip active" data-filter-grade="all" id="fgrade-all">전체</button>
+            <button class="filter-chip" data-filter-grade="기술사" id="fgrade-pe">기술사</button>
+            <button class="filter-chip" data-filter-grade="기능장" id="fgrade-mc">기능장</button>
+            <button class="filter-chip" data-filter-grade="기사" id="fgrade-e">기사</button>
+            <button class="filter-chip" data-filter-grade="산업기사" id="fgrade-ie">산업기사</button>
+            <button class="filter-chip" data-filter-grade="기능사" id="fgrade-c">기능사</button>
+          </div>
+          <div class="filter-chips">
+            <span class="filter-chip-label">분야:</span>
+            <button class="filter-chip active" data-filter-field="all" id="ffield-all">전체</button>
+            <button class="filter-chip" data-filter-field="전기·전자" id="ffield-elec">⚡ 전기·전자</button>
+            <button class="filter-chip" data-filter-field="IT·정보" id="ffield-it">💻 IT·정보</button>
+            <button class="filter-chip" data-filter-field="건설·토목" id="ffield-const">🏗️ 건설·토목</button>
+            <button class="filter-chip" data-filter-field="안전·환경" id="ffield-safety">🦺 안전·환경</button>
+            <button class="filter-chip" data-filter-field="기계·금속" id="ffield-mech">⚙️ 기계·금속</button>
+            <button class="filter-chip" data-filter-field="화학·식품" id="ffield-chem">🧪 화학·식품</button>
+            <button class="filter-chip" data-filter-field="조리·서비스" id="ffield-cook">🍳 조리·서비스</button>
+            <button class="filter-chip" data-filter-field="운전·운반" id="ffield-drive">🚛 운전·운반</button>
+          </div>
+        </div>
+
+        <!-- 로딩 -->
+        <div class="allitems-loading" id="allitems-loading">
+          <div class="spinner"></div>
+          <p>전체 종목 목록을 불러오는 중...</p>
+        </div>
+
+        <!-- 그리드 -->
+        <div class="allitems-grid" id="allitems-grid"></div>
+
+        <!-- 더 보기 -->
+        <div class="allitems-more-wrap" id="allitems-more-wrap" style="display:none;">
+          <button class="allitems-more-btn" id="allitems-more-btn">더 보기</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="logo-icon" style="font-size:1.5rem;">📋</div>
+          <div>
+            <div class="footer-brand-name">자격증 나침반</div>
+            <div class="footer-brand-desc">한국산업인력공단 공공데이터 API 기반</div>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.q-net.or.kr" target="_blank" rel="noopener" id="footer-qnet">Q-net 공식 사이트</a>
+          <a href="https://www.hrdkorea.or.kr" target="_blank" rel="noopener" id="footer-hrd">한국산업인력공단</a>
+          <a href="https://www.data.go.kr" target="_blank" rel="noopener" id="footer-data">공공데이터포털</a>
+        </div>
+      </div>
+      <div class="footer-copy">
+        <p>본 서비스는 공공데이터 개방 API를 활용하여 제공됩니다. 시험 일정은 변경될 수 있으니 Q-net에서 최종 확인하시기 바랍니다.</p>
+        <p>© 2026 자격증 나침반. 데이터 출처: 한국산업인력공단</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 모달 -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">자격증 상세정보</h3>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <!-- 동적 삽입 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 로딩 토스트 -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
